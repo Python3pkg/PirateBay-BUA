@@ -1,12 +1,5 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-# Copyright (c) Alexander Borgerth 2010, Copyright (c) 2005-2010 re-edited by Maxiste Deams, Patrick Riendeau, Rheault Etccy for 
-# Upcoming Security audit in Canada.
-# See LICENSE for details.
-
-from urllib2                  import Request, urlopen
-from urllib                   import urlencode
+from urllib.request import Request, urlopen
+from urllib.parse                   import urlencode
 from os                       import path, getcwd
 from random                   import choice
 from fake_useragent           import UserAgent
@@ -67,7 +60,7 @@ class RequestObject( object ):
 
   @property
   def GetBrowserType( self ):
-    return self.AgentSpecification['name'].keys()
+    return list(self.AgentSpecification['name'].keys())
 
   def GetAgentName( self ):
     return self.BrowserName
@@ -82,7 +75,7 @@ class RequestObject( object ):
   AgentName = property( GetAgentName , SetAgentName )
 
   def SetVerRange( self, Value ):
-    print "Calling %s" % self.SetVerRange.__name__
+    print("Calling %s" % self.SetVerRange.__name__)
     self.VerRangeKeyName, self.VerAgentKeyName = Value
     self.VerKeyZip=self.VersionRange[self.VerRangeKeyName]['zip']['value']
     self.VerKeyZipFormat=self.VersionRange[self.VerRangeKeyName]['zip']['format']
@@ -90,27 +83,27 @@ class RequestObject( object ):
     self.VerMax=self.VersionRange[self.VerRangeKeyName]['max']
         
   def GetVerRange( self ):
-    print """Calling {}\n,NumberSegment: {}\nformatting RangeKey :{},\nFormat Rule: {}""".format( self.GetVerRange.__name__, self.VerKeyZip , self.VerRangeKeyName, self.VerKeyZipFormat )
+    print("""Calling {}\n,NumberSegment: {}\nformatting RangeKey :{},\nFormat Rule: {}""".format( self.GetVerRange.__name__, self.VerKeyZip , self.VerRangeKeyName, self.VerKeyZipFormat ))
     IntCount=0
     for aInt in range( self.VerMin, self.VerMax ):
       ListSeg=list()
       NumberTuple=tuple(str(aInt))
-      print "[ %d ] Number Sequence %s " % ( IntCount , NumberTuple )
+      print("[ %d ] Number Sequence %s " % ( IntCount , NumberTuple ))
       self.AgentItemRepl[self.VerAgentKeyName]['data'].append( self.VerKeyZipFormat % ( NumberTuple ) )
-      print "List:[ %s ]" % ( self.AgentItemRepl[self.VerAgentKeyName]['data'] )
+      print("List:[ %s ]" % ( self.AgentItemRepl[self.VerAgentKeyName]['data'] ))
       IntCount+=1
 
   def SetParseRandomAgentKeyValue( self , AgentToken ):
-    print "Calling %s" % self.SetParseRandomAgentKeyValue.__name__
+    print("Calling %s" % self.SetParseRandomAgentKeyValue.__name__)
     AgentString=AgentToken
-    for ItemKey in self.AgentItemRepl.keys():
+    for ItemKey in list(self.AgentItemRepl.keys()):
       DataChoice=choice( self.AgentItemRepl[ItemKey]['data'] )
       TagName=self.AgentItemRepl[ItemKey]['tag']
       AgentString=AgentString.replace( TagName, DataChoice )
     self.StrAgentdeTokenize=AgentString
 
   def GetParseRandomAgentKeyValue( self ):
-    print "Calling %s" % self.GetParseRandomAgentKeyValue.__name__
+    print("Calling %s" % self.GetParseRandomAgentKeyValue.__name__)
     return self.StrAgentdeTokenize
     
   PropertyRange=property( GetVerRange, SetVerRange )

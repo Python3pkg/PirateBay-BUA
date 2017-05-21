@@ -2,8 +2,8 @@
 # Upcoming Security audit in Canada.
 # See LICENSE for details.
 
-import os, sys, StringIO
-from StringIO import StringIO
+import os, sys, io
+from io import StringIO
 
 #AStrIO_desc = StringIO( open( 'README.rst' , 'r+' ).read())
 #AStrIO_lic  = StringIO( open( 'license.txt', 'r+' ).read())

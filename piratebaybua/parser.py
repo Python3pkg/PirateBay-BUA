@@ -3,7 +3,7 @@
 # See LICENSE for details.
 
 
-from urlparse import urljoin
+from urllib.parse import urljoin
 from piratebaybua import exceptions
 
 _xpath_table = ".//div[@id='content']/div[@id='main-content']/table[@id='searchResult']"

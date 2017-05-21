@@ -36,7 +36,7 @@ def search_main(term, category=0, page=0, order_by=order["seeders"]):
     UrlRespond = [ ]
     for URI in url_addr:
       URequest = Request( url=search_page_url.format( URI ) )
-      UConnect = urllib2.urlopen( URequest )
+      UConnect = urllib.request.urlopen( URequest )
       UrlRespond.append( [URI, UConnect.get_code() ] )
     IsUriAccess = 0
     UriName = None 
